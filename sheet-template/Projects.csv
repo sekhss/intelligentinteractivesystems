@@ -1,0 +1,10 @@
+title,areas,people,blurb,description,video,poster,captions,visible,id
+Biomechanical simulated users,Interaction science; Intelligent systems,Ankit Bhattarai; Florian Fischer; Per Ola Kristensson,Reinforcement-learning models of the human arm that test interaction designs and steering tasks before anyone is recruited.,,,,,,p-sim
+Objects and gestures in mixed reality,HCI,Zhuoyue Lyu; Per Ola Kristensson,"Everyday objects, their boundaries and mid-air gestures as expressive input for mixed reality.",,,,,,p-mr
+Open-set gesture and voice in 3D,HCI; Intelligent systems,Clare Heinbaugh; John Dudley; Per Ola Kristensson,"Generating code at runtime so gesture and voice commands are not limited to a fixed, predefined set.",,,,,,p-open
+Accessible virtual and augmented reality,Accessibility & AAC; HCI,Junlong Chen; Florian Fischer; John Dudley; Per Ola Kristensson,"Measuring who immersive technology leaves out, and building tools that interpret scenes for people with visual impairments.",,,,,,p-xr
+Eye typing and communication access,Accessibility & AAC; HCI,Aleesha Hamid; Per Ola Kristensson,"Dwell-free gaze typing and assistive communication, building on the lab's long record in text entry.",,,,,,p-eye
+Interactive rich pictures,HCI; Intelligent systems,Aleesha Hamid; Per Ola Kristensson,Interactive diagrams that surface the hidden work inside complex systems.,,,,,,p-pic
+Bayesian optimisation for interaction design,Intelligent systems; Interaction science; Crowdsourcing,John Dudley; Per Ola Kristensson,"Keeping the human in the loop while algorithms search design spaces, from cost-aware optimisation to crowd-based interface tuning.",,,,,,p-bo
+Human–AI interaction in software testing,Intelligent systems; HCI,Billy Shi; Per Ola Kristensson,"How people and LLM agents should share the work of writing test cases: preemptive, buffered or guided.",,,,,,p-llm
+Text entry in mixed reality,HCI; Intelligent systems,Florian Fischer; John Dudley; Per Ola Kristensson,"Typing and pointing in mid-air, from probabilistic surface detection to eye-hand coordination in gesture typing.",,,,,,p-text

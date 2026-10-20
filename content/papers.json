@@ -1,0 +1,401 @@
+[
+  {
+    "id": "bo-chi",
+    "year": 2026,
+    "vs": "CHI 2026",
+    "title": "Cost-aware Bayesian optimization for interactive devices",
+    "au": "Langerak, Zhang, Wang, Kristensson, Oulasvirta",
+    "ve": "CHI 2026",
+    "award": "Best Paper Honourable Mention",
+    "areas": [
+      "iis",
+      "sci"
+    ],
+    "people": [
+      "pok"
+    ],
+    "projects": [
+      "p-bo"
+    ]
+  },
+  {
+    "id": "myo-dis",
+    "year": 2026,
+    "vs": "DIS 2026",
+    "title": "MyoInteract: a framework for fast prototyping of biomechanical HCI tasks using reinforcement learning",
+    "au": "Bhattarai, Selder, Fischer, Fleig, Kristensson",
+    "ve": "DIS 2026",
+    "areas": [
+      "sci",
+      "iis"
+    ],
+    "people": [
+      "ab",
+      "ff",
+      "pok"
+    ],
+    "projects": [
+      "p-sim"
+    ]
+  },
+  {
+    "id": "steer",
+    "year": 2026,
+    "vs": "UIST 2026",
+    "title": "Do simulated users steer like humans? A biomechanical reinforcement learning testbed for steering law evaluation",
+    "au": "Selder, Bhattarai, Fischer, Kristensson, Fleig",
+    "ve": "UIST 2026",
+    "areas": [
+      "sci",
+      "iis"
+    ],
+    "people": [
+      "ab",
+      "ff",
+      "pok"
+    ],
+    "projects": [
+      "p-sim"
+    ]
+  },
+  {
+    "id": "unbounded",
+    "year": 2026,
+    "vs": "CHI 2026",
+    "title": "Unbounded: object-boundary interactions in mixed reality",
+    "au": "Lyu, Kristensson",
+    "ve": "CHI 2026",
+    "areas": [
+      "hci"
+    ],
+    "people": [
+      "zl",
+      "pok"
+    ],
+    "projects": [
+      "p-mr"
+    ]
+  },
+  {
+    "id": "objestures",
+    "year": 2026,
+    "vs": "CHI 2026",
+    "title": "Objestures: everyday objects meet mid-air gestures for expressive interaction",
+    "au": "Lyu, Kristensson",
+    "ve": "CHI 2026",
+    "areas": [
+      "hci"
+    ],
+    "people": [
+      "zl",
+      "pok"
+    ],
+    "projects": [
+      "p-mr"
+    ]
+  },
+  {
+    "id": "openset",
+    "year": 2026,
+    "vs": "ISMAR 2026",
+    "title": "Tackling open set gesture and voice interaction in 3D with runtime code generation",
+    "au": "Heinbaugh, Song, Dudley, Kristensson",
+    "ve": "ISMAR 2026",
+    "areas": [
+      "hci",
+      "iis"
+    ],
+    "people": [
+      "ch",
+      "jd",
+      "pok"
+    ],
+    "projects": [
+      "p-open"
+    ]
+  },
+  {
+    "id": "envision",
+    "year": 2026,
+    "vs": "TVCG 2026",
+    "title": "EnvisionVR: a scene interpretation tool for visual accessibility in virtual reality",
+    "au": "Chen, Galindo Esparza, Garaj, Kristensson, Dudley",
+    "ve": "IEEE TVCG 32(2)",
+    "areas": [
+      "acc",
+      "hci"
+    ],
+    "people": [
+      "jc",
+      "jd",
+      "pok"
+    ],
+    "projects": [
+      "p-xr"
+    ]
+  },
+  {
+    "id": "rich",
+    "year": 2026,
+    "vs": "CHIWORK 2026",
+    "title": "Interactive rich pictures: surfacing hidden work in complex systems",
+    "au": "Hamid, Kristensson",
+    "ve": "CHIWORK 2026, late-breaking work",
+    "areas": [
+      "hci",
+      "iis"
+    ],
+    "people": [
+      "ah",
+      "pok"
+    ],
+    "projects": [
+      "p-pic"
+    ]
+  },
+  {
+    "id": "shi",
+    "year": 2026,
+    "vs": "TOCHI 2026",
+    "title": "Preemptive, buffered or guided? Empirical studies on human-AI interaction strategies for software test case development",
+    "au": "Shi, Kristensson",
+    "ve": "ACM TOCHI",
+    "areas": [
+      "iis",
+      "hci"
+    ],
+    "people": [
+      "bs",
+      "pok"
+    ],
+    "projects": [
+      "p-llm"
+    ]
+  },
+  {
+    "id": "bo-csur",
+    "year": 2026,
+    "vs": "CSUR 2026",
+    "title": "Putting the human back in the loop: a review of interactive Bayesian optimization",
+    "au": "Dudley, Oulasvirta, Chan, Kristensson",
+    "ve": "ACM Computing Surveys",
+    "areas": [
+      "iis",
+      "sci"
+    ],
+    "people": [
+      "jd",
+      "pok"
+    ],
+    "projects": [
+      "p-bo"
+    ]
+  },
+  {
+    "id": "sensorimotor",
+    "year": 2026,
+    "vs": "TOCHI 2026",
+    "title": "Sensorimotor regularities as alignment between humans and large language models",
+    "au": "Li, Hu, Kristensson",
+    "ve": "ACM TOCHI 33(2)",
+    "areas": [
+      "iis",
+      "sci"
+    ],
+    "people": [
+      "pok"
+    ],
+    "projects": []
+  },
+  {
+    "id": "inplane",
+    "year": 2025,
+    "vs": "SUI 2025",
+    "title": "Probabilistic in-plane detection for mid-air virtual surface interactions",
+    "au": "Fischer, Yu, Johns, Kristensson, Dudley",
+    "ve": "SUI 2025",
+    "award": "Best Paper Award",
+    "link": "https://doi.org/10.1145/3694907.3765937",
+    "areas": [
+      "hci",
+      "iis"
+    ],
+    "people": [
+      "ff",
+      "jd",
+      "pok"
+    ],
+    "projects": [
+      "p-text"
+    ]
+  },
+  {
+    "id": "handows",
+    "year": 2025,
+    "vs": "ISMAR 2025",
+    "title": "Handows: a palm-based interactive multi-window management system in virtual reality",
+    "au": "Wang, Zhou, Ren, Kristensson, Li",
+    "ve": "IEEE TVCG, ISMAR 2025",
+    "award": "Best Journal Paper Honourable Mention",
+    "link": "https://doi.org/10.1109/TVCG.2025.3616843",
+    "areas": [
+      "hci"
+    ],
+    "people": [
+      "pok"
+    ],
+    "projects": []
+  },
+  {
+    "id": "hardware",
+    "year": 2025,
+    "vs": "CHI 2025",
+    "title": "Making hardware devices at scale is still hard: challenges and opportunities for the HCI community",
+    "au": "Kang, Hodges, Kristensson",
+    "ve": "CHI 2025",
+    "award": "Best Paper Honourable Mention",
+    "link": "https://doi.org/10.1145/3706598.3713214",
+    "areas": [
+      "hci",
+      "sci"
+    ],
+    "people": [
+      "pok"
+    ],
+    "projects": []
+  },
+  {
+    "id": "exclusion",
+    "year": 2025,
+    "vs": "CHI 2025",
+    "title": "Exclusion rates among disabled and older users of virtual and augmented reality",
+    "au": "Galindo Esparza, Dudley, Garaj, Kristensson",
+    "ve": "CHI 2025",
+    "link": "https://doi.org/10.1145/3706598.3713377",
+    "areas": [
+      "acc",
+      "hci"
+    ],
+    "people": [
+      "jd",
+      "pok"
+    ],
+    "projects": [
+      "p-xr"
+    ]
+  },
+  {
+    "id": "hu-chi",
+    "year": 2025,
+    "vs": "CHI 2025",
+    "title": "Seeing and touching the air: unraveling eye-hand coordination in mid-air gesture typing for mixed reality",
+    "au": "Hu, Dudley, Kristensson",
+    "ve": "CHI 2025",
+    "link": "https://doi.org/10.1145/3706598.3713743",
+    "areas": [
+      "hci",
+      "iis"
+    ],
+    "people": [
+      "jd",
+      "pok"
+    ],
+    "projects": [
+      "p-text"
+    ]
+  },
+  {
+    "id": "reward",
+    "year": 2025,
+    "vs": "UIST 2025",
+    "title": "Demystifying reward design in reinforcement learning for upper extremity interaction",
+    "au": "Selder, Fischer, Kristensson, Fleig",
+    "ve": "UIST 2025",
+    "link": "https://doi.org/10.1145/3746059.3747779",
+    "areas": [
+      "sci",
+      "iis"
+    ],
+    "people": [
+      "ff",
+      "pok"
+    ],
+    "projects": [
+      "p-sim"
+    ]
+  },
+  {
+    "id": "intro",
+    "year": 2025,
+    "vs": "OUP 2025",
+    "title": "Introduction to Human-Computer Interaction",
+    "au": "Hornbæk, Kristensson, Oulasvirta",
+    "ve": "Oxford University Press",
+    "book": true,
+    "link": "https://global.oup.com/academic/product/introduction-to-human-computer-interaction-9780192864543",
+    "areas": [
+      "hci",
+      "sci"
+    ],
+    "people": [
+      "pok"
+    ],
+    "projects": []
+  },
+  {
+    "id": "eyetyping",
+    "year": 2024,
+    "vs": "ETRA 2024",
+    "title": "40 years of eye typing: challenges, gaps, and emergent strategies",
+    "au": "Hamid, Kristensson",
+    "ve": "ETRA 2024",
+    "link": "https://doi.org/10.1145/3655596",
+    "areas": [
+      "acc",
+      "hci"
+    ],
+    "people": [
+      "ah",
+      "pok"
+    ],
+    "projects": [
+      "p-eye"
+    ]
+  },
+  {
+    "id": "crowdbo",
+    "year": 2019,
+    "vs": "CHI 2019",
+    "title": "Crowdsourcing interface feature design with Bayesian optimization",
+    "au": "Dudley, Jacques, Kristensson",
+    "ve": "CHI 2019",
+    "link": "https://doi.org/10.1145/3290605.3300482",
+    "areas": [
+      "hc",
+      "iis"
+    ],
+    "people": [
+      "jd",
+      "pok"
+    ],
+    "projects": [
+      "p-bo"
+    ]
+  },
+  {
+    "id": "gig",
+    "year": 2019,
+    "vs": "CHI 2019",
+    "title": "Crowdworker economics in the gig economy",
+    "au": "Jacques, Kristensson",
+    "ve": "CHI 2019",
+    "link": "https://doi.org/10.1145/3290605.3300621",
+    "areas": [
+      "hc"
+    ],
+    "people": [
+      "pok"
+    ],
+    "projects": []
+  }
+]

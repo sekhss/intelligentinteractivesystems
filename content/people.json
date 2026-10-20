@@ -1,0 +1,183 @@
+[
+  {
+    "id": "pok",
+    "name": "Per Ola Kristensson",
+    "role": "Principal investigator",
+    "group": "PI",
+    "status": "current",
+    "featured": true,
+    "areas": [
+      "iis",
+      "hci",
+      "acc",
+      "hc",
+      "sci"
+    ],
+    "bio": "Professor of Interactive Systems Engineering and Fellow of Trinity College. He co-invented gesture keyboard technology, now built into most phones and tablets, and co-founded ShapeWriter, which Nuance acquired in 2010. Co-director of the Centre for Human-Inspired AI, winner of the ACM UIST Lasting Impact Award, and inducted into the ACM SIGCHI Academy.",
+    "chia": true,
+    "email": "pok21@cam.ac.uk",
+    "website": "https://www.pokristensson.com/",
+    "contact": true
+  },
+  {
+    "id": "ff",
+    "name": "Florian Fischer",
+    "role": "Research associate · Clare Hall",
+    "group": "Postdoc",
+    "status": "current",
+    "areas": [
+      "sci",
+      "acc",
+      "hci"
+    ],
+    "bio": "Builds computational methods that study how accessible, ergonomic and efficient intelligent systems are, with a focus on virtual reality. He combines motor control, biomechanics and cognitive science to create AI-based models of users, and co-authored the SUI 2025 best paper on mid-air surface interaction."
+  },
+  {
+    "id": "jl",
+    "name": "Jiuming Liu",
+    "role": "PhD student",
+    "group": "PhD",
+    "status": "current",
+    "areas": [],
+    "bio": "PhD student in the Intelligent Interactive Systems group.",
+    "advisor": "pok"
+  },
+  {
+    "id": "jc",
+    "name": "Junlong Chen",
+    "role": "PhD student",
+    "group": "PhD",
+    "status": "current",
+    "areas": [
+      "acc",
+      "hci"
+    ],
+    "bio": "Completed an MPhil at Cambridge with a dissertation on scene interpretation for visual accessibility in virtual reality. His work includes EnvisionVR and studies of speech, pointing and LLM-assisted manipulation of 3D scenes."
+  },
+  {
+    "id": "ch",
+    "name": "Clare Heinbaugh",
+    "role": "PhD student",
+    "group": "PhD",
+    "status": "current",
+    "areas": [
+      "hci",
+      "iis"
+    ],
+    "bio": "Studies how people interact with computers through gestures in extended reality, focusing on applications where automated system inference and the user's own control work together."
+  },
+  {
+    "id": "ah",
+    "name": "Aleesha Hamid",
+    "role": "PhD student · Hughes Hall",
+    "group": "PhD",
+    "status": "current",
+    "areas": [
+      "acc",
+      "hci"
+    ],
+    "bio": "Researcher at the Engineering Design Centre. She wrote a review of forty years of eye typing research and develops interactive rich pictures that surface hidden work in complex systems."
+  },
+  {
+    "id": "zl",
+    "name": "Zhuoyue Lyu",
+    "role": "PhD student",
+    "group": "PhD",
+    "status": "current",
+    "areas": [
+      "hci"
+    ],
+    "bio": "Works on augmented, virtual and mixed reality, with a background spanning research, design, engineering, teaching and art. Holds a Harvard master's in education and a Toronto bachelor's in computer science, and is supported by Trinity-Henry Barlow and Cambridge Trust scholarships."
+  },
+  {
+    "id": "ab",
+    "name": "Ankit Bhattarai",
+    "role": "PhD student",
+    "group": "PhD",
+    "status": "current",
+    "areas": [
+      "sci",
+      "iis"
+    ],
+    "bio": "Works on biomechanical user simulation for HCI. Lead author of MyoInteract, a framework for prototyping biomechanical interaction tasks with reinforcement learning."
+  },
+  {
+    "id": "bs",
+    "name": "Billy Shi",
+    "role": "PhD student, part-time · Apple",
+    "group": "PhD",
+    "status": "current",
+    "areas": [
+      "iis",
+      "hci"
+    ],
+    "bio": "Studies how people and LLM agents should share the work of software test case development, with papers in ACM TOCHI and IEEE Software."
+  },
+  {
+    "id": "is",
+    "name": "Izabella Sabharwal De Bessenyey",
+    "role": "PhD student",
+    "group": "PhD",
+    "status": "current",
+    "chia": true,
+    "areas": [],
+    "bio": "PhD student at the Centre for Human-Inspired AI, working with the group."
+  },
+  {
+    "id": "ss",
+    "name": "Shriya Sekhsaria",
+    "role": "PhD student · Clare Hall",
+    "group": "PhD",
+    "status": "current",
+    "chia": true,
+    "areas": [],
+    "bio": "PhD student at the Centre for Human-Inspired AI, supervised by Per Ola Kristensson. Shriya is interested in how technology like AI affects human capacities like love and creativity. She founded Lumhaa, a memory and relationship app, graduated from Princeton in 2018, and writes novels."
+  },
+  {
+    "id": "ks",
+    "name": "Konstantin Strömel",
+    "role": "PhD student",
+    "group": "PhD",
+    "status": "current",
+    "chia": true,
+    "areas": [],
+    "bio": "PhD student at the Centre for Human-Inspired AI, working with the group."
+  },
+  {
+    "id": "oa",
+    "name": "Oliver Anderson",
+    "role": "PhD student",
+    "group": "PhD",
+    "status": "current",
+    "chia": true,
+    "areas": [],
+    "bio": "PhD student at the Centre for Human-Inspired AI, working with the group."
+  },
+  {
+    "id": "jdo",
+    "name": "John Douglas",
+    "role": "PhD student, machine learning",
+    "group": "PhD",
+    "status": "current",
+    "areas": [],
+    "bio": "PhD student in machine learning, supervised by John Dudley.",
+    "advisor": "jd"
+  },
+  {
+    "id": "jd",
+    "name": "John Dudley",
+    "role": "Principal investigator · MPhil course director",
+    "group": "PI",
+    "status": "current",
+    "areas": [
+      "sci",
+      "hci",
+      "acc",
+      "hc"
+    ],
+    "bio": "Course Director of the MPhil in Machine Learning and Machine Intelligence. His research with the group spans Bayesian optimisation for interaction design, text entry in virtual and augmented reality, and accessibility of immersive technology.",
+    "email": "jjd50@cam.ac.uk",
+    "contact": true,
+    "featured": true
+  }
+]

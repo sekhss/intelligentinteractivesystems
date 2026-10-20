@@ -1,0 +1,13 @@
+{
+  "name": "iis-cambridge-website",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node build.mjs",
+    "sync": "node scripts/sync-sheet.mjs",
+    "export-sheet": "node scripts/export-sheet.mjs",
+    "serve": "node scripts/serve.mjs",
+    "dev": "node build.mjs && node scripts/serve.mjs"
+  }
+}

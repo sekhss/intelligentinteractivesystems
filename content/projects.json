@@ -1,0 +1,124 @@
+[
+  {
+    "id": "p-sim",
+    "title": "Biomechanical simulated users",
+    "areas": [
+      "sci",
+      "iis"
+    ],
+    "people": [
+      "ab",
+      "ff",
+      "pok"
+    ],
+    "blurb": "Reinforcement-learning models of the human arm that test interaction designs and steering tasks before anyone is recruited."
+  },
+  {
+    "id": "p-mr",
+    "title": "Objects and gestures in mixed reality",
+    "areas": [
+      "hci"
+    ],
+    "people": [
+      "zl",
+      "pok"
+    ],
+    "blurb": "Everyday objects, their boundaries and mid-air gestures as expressive input for mixed reality."
+  },
+  {
+    "id": "p-open",
+    "title": "Open-set gesture and voice in 3D",
+    "areas": [
+      "hci",
+      "iis"
+    ],
+    "people": [
+      "ch",
+      "jd",
+      "pok"
+    ],
+    "blurb": "Generating code at runtime so gesture and voice commands are not limited to a fixed, predefined set."
+  },
+  {
+    "id": "p-xr",
+    "title": "Accessible virtual and augmented reality",
+    "areas": [
+      "acc",
+      "hci"
+    ],
+    "people": [
+      "jc",
+      "ff",
+      "jd",
+      "pok"
+    ],
+    "blurb": "Measuring who immersive technology leaves out, and building tools that interpret scenes for people with visual impairments."
+  },
+  {
+    "id": "p-eye",
+    "title": "Eye typing and communication access",
+    "areas": [
+      "acc",
+      "hci"
+    ],
+    "people": [
+      "ah",
+      "pok"
+    ],
+    "blurb": "Dwell-free gaze typing and assistive communication, building on the lab's long record in text entry."
+  },
+  {
+    "id": "p-pic",
+    "title": "Interactive rich pictures",
+    "areas": [
+      "hci",
+      "iis"
+    ],
+    "people": [
+      "ah",
+      "pok"
+    ],
+    "blurb": "Interactive diagrams that surface the hidden work inside complex systems."
+  },
+  {
+    "id": "p-bo",
+    "title": "Bayesian optimisation for interaction design",
+    "areas": [
+      "iis",
+      "sci",
+      "hc"
+    ],
+    "people": [
+      "jd",
+      "pok"
+    ],
+    "blurb": "Keeping the human in the loop while algorithms search design spaces, from cost-aware optimisation to crowd-based interface tuning."
+  },
+  {
+    "id": "p-llm",
+    "title": "Human–AI interaction in software testing",
+    "areas": [
+      "iis",
+      "hci"
+    ],
+    "people": [
+      "bs",
+      "pok"
+    ],
+    "blurb": "How people and LLM agents should share the work of writing test cases: preemptive, buffered or guided."
+  },
+  {
+    "id": "p-text",
+    "title": "Text entry in mixed reality",
+    "areas": [
+      "hci",
+      "iis"
+    ],
+    "people": [
+      "ff",
+      "jd",
+      "pok"
+    ],
+    "blurb": "Typing and pointing in mid-air, from probabilistic surface detection to eye-hand coordination in gesture typing."
+  }
+]

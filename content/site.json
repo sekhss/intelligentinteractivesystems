@@ -1,0 +1,16 @@
+{
+  "title": "Intelligent Interactive Systems",
+  "brand": "IIS · Cambridge",
+  "description": "The Intelligent Interactive Systems group at the University of Cambridge designs, builds and studies interactive systems that make people more creative, expressive and satisfied.",
+  "url": "https://example.org/",
+  "dept": "Department of Engineering · University of Cambridge",
+  "lede": "We design, build and study interactive systems that make people more creative, expressive and satisfied, and that amplify how efficiently they work with computers.",
+  "address": "Led by Professor Per Ola Kristensson, Department of Engineering, University of Cambridge, Cambridge CB2 1PZ.",
+  "joinText": "The group welcomes enthusiastic PhD students and postdoctoral researchers, and a range of PhD projects is available.",
+  "publicationsUrl": "https://www.pokristensson.com/publications.html",
+  "links": [
+    { "label": "Per Ola Kristensson", "url": "https://www.pokristensson.com/" },
+    { "label": "Centre for Human-Inspired AI", "url": "https://www.chia.cam.ac.uk/team/per-ola-kristensson" },
+    { "label": "Department profile", "url": "https://www.eng.cam.ac.uk/profiles/pok21" }
+  ]
+}

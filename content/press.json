@@ -1,0 +1,50 @@
+[
+  {
+    "id": "mit-tr35",
+    "date": "2013-08-21",
+    "outlet": "MIT Technology Review",
+    "title": "New computing devices are inspiring new ways to input text.",
+    "by": "Ted Greenwald",
+    "url": "https://www.technologyreview.com/lists/innovators-under-35/2013/visionary/per-ola-kristensson/"
+  },
+  {
+    "id": "fastco",
+    "date": "2013-04-30",
+    "outlet": "Fast Company's Co.Design",
+    "title": "Users Are Better Off Designing Their Own UI Gestures",
+    "by": "Mark Wilson",
+    "url": "https://www.fastcompany.com/1672458/users-are-better-off-designing-their-own-ui-gestures"
+  },
+  {
+    "id": "techcrunch",
+    "date": "2013-04-24",
+    "outlet": "TechCrunch",
+    "title": "KALQ Is A New Split-Screen Keyboard Layout Designed To Speed Up Thumb Typing",
+    "by": "Natasha Lomas",
+    "url": "https://techcrunch.com/2013/04/24/kalq/"
+  },
+  {
+    "id": "mit-screens",
+    "date": "2013-04-02",
+    "outlet": "MIT Technology Review",
+    "title": "Software Makes Multiple Screens Less Distracting",
+    "by": "John Pavlus",
+    "url": "https://www.technologyreview.com/s/512891/software-makes-multiple-screens-less-distracting/"
+  },
+  {
+    "id": "newsci",
+    "date": "2012-02-22",
+    "outlet": "New Scientist, pp. 24–25",
+    "title": "Crowdsourcing improves predictive texting",
+    "by": "Duncan Graham-Rowe",
+    "url": "https://www.newscientist.com/article/mg21328536-600-crowdsourcing-improves-predictive-texting/"
+  },
+  {
+    "id": "economist",
+    "date": "2010-09-02",
+    "outlet": "The Economist's Technology Quarterly",
+    "title": "Correct me if I'm wrong...",
+    "by": "The Economist",
+    "url": "https://www.economist.com/technology-quarterly/2010/09/02/correct-me-if-im-wrong"
+  }
+]

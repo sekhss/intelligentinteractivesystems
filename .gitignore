@@ -1,0 +1,4 @@
+dist/
+node_modules/
+public/img/synced/
+.DS_Store

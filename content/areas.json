@@ -1,0 +1,37 @@
+[
+  {
+    "id": "iis",
+    "name": "Intelligent interactive systems",
+    "short": "Intelligent systems",
+    "c": "var(--a-iis)",
+    "word": "intelligent"
+  },
+  {
+    "id": "hci",
+    "name": "Human–computer interaction",
+    "short": "HCI",
+    "c": "var(--a-hci)",
+    "word": "interaction"
+  },
+  {
+    "id": "acc",
+    "name": "Accessibility, inclusive design and AAC",
+    "short": "Accessibility & AAC",
+    "c": "var(--a-acc)",
+    "word": "access"
+  },
+  {
+    "id": "hc",
+    "name": "Human computation and crowdsourcing",
+    "short": "Crowdsourcing",
+    "c": "var(--a-hc)",
+    "word": "crowd"
+  },
+  {
+    "id": "sci",
+    "name": "Interaction science",
+    "short": "Interaction science",
+    "c": "var(--a-sci)",
+    "word": "science"
+  }
+]
