@@ -5,7 +5,7 @@ on:
     branches: [main]
   schedule:
     - cron: "11 * * * *"   # hourly: picks up edits made in the Google Sheet
-  workflow_dispatch:        # the "Run workflow" button, or the sheet's Publish button
+  workflow_dispatch:        # the "Run workflow" button, 
 
 permissions:
   contents: read
@@ -33,6 +33,9 @@ jobs:
           SHEET_ID: ${{ vars.SHEET_ID }}
       - name: Build the site
         run: node build.mjs
+        env:
+          SHEET_ID: ${{ vars.SHEET_ID }}
+          EDIT_PASSWORD: ${{ secrets.EDIT_PASSWORD }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

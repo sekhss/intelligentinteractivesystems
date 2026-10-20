@@ -10,7 +10,7 @@ import { loadRaw, buildModel, GROUPS, MEDIA_KINDS } from './scripts/lib/content.
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = process.env.DIST_DIR || path.join(ROOT, 'dist');
 const model = buildModel(loadRaw(process.env.CONTENT_DIR || path.join(ROOT, 'content')));
-const { site, areas, people, projects, papers, media, press } = model;
+const { site, areas, people, projects, papers, media, press, undergrads } = model;
 
 /* ---------- helpers ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -21,6 +21,12 @@ const paras = t => String(t || '').split(/\n+/).map(s => s.trim()).filter(Boolea
 const byId = list => Object.fromEntries(list.map(x => [x.id, x]));
 const A = byId(areas), P = byId(people), PR = byId(projects), PA = byId(papers);
 const siteUrl = (site.url || '').replace(/\/?$/, '/');
+/* /manage is a password box that forwards to the editing sheet. It is only built when both SHEET_ID and EDIT_PASSWORD are set. */
+const editPassword = process.env.EDIT_PASSWORD || '';
+const sheetId = process.env.SHEET_ID || '';
+const manageEnabled = !!(editPassword && sheetId);
+if ((editPassword || sheetId) && !manageEnabled && editPassword) model.warnings.push('/manage was not generated: it needs both EDIT_PASSWORD and SHEET_ID.');
+if (editPassword && editPassword.length < 16) model.errors.push('EDIT_PASSWORD must be at least 16 characters: it is the only thing protecting the sheet link.');
 let lastUpdated = null; // { hash, date }, set just before writing
 const hash = f => crypto.createHash('md5').update(fs.readFileSync(f)).digest('hex').slice(0, 8);
 
@@ -90,7 +96,7 @@ ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\
 ${body}
 <footer>
   <div class="wrap foot-grid">
-    <div><h2 class="mono">${esc(site.title)}</h2><p>${esc(site.address)}</p><p class="updated">Last updated on <time datetime="${lastUpdated.date}">${new Date(lastUpdated.date + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time></p></div>
+    <div><h2 class="mono">${esc(site.title)}</h2><p>${esc(site.address)}</p>${manageEnabled ? `<p class="updated"><a href="${root}manage/">Lab members: edit this site</a></p>` : ''}<p class="updated">Last updated on <time datetime="${lastUpdated.date}">${new Date(lastUpdated.date + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time></p></div>
     <div><h2 class="mono">Sections</h2><ul>${['projects', 'people', 'papers', 'press'].map(s => `<li><a href="${root}#${s}">${s[0].toUpperCase() + s.slice(1)}</a></li>`).join('')}</ul></div>
     <div><h2 class="mono">Links</h2><ul>${(site.links || []).map(l => `<li><a href="${esc(l.url)}">${esc(l.label)}</a></li>`).join('')}</ul></div>
   </div>
@@ -129,6 +135,7 @@ function personPage(p) {
   const adv = p.advisor ? P[p.advisor] : null;
   const contact = [
     p.email && `<li><span class="mono">Email</span><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></li>`,
+    p.orcid && `<li><span class="mono">ORCID</span><a href="https://orcid.org/${esc(p.orcid)}">${esc(p.orcid)}</a></li>`,
     p.website && `<li><span class="mono">Website</span><a href="${esc(p.website)}">${esc(p.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a></li>`,
     adv && `<li><span class="mono">Supervisor</span><a href="${root}people/${adv.id}/">${esc(adv.name)}</a></li>`
   ].filter(Boolean);
@@ -150,7 +157,7 @@ function personPage(p) {
   ${myPapers.length ? `<h2 class="subhead">Papers</h2><div class="papers">${myPapers.map(paperCard).join('')}</div>` : ''}
   ${myMedia.length ? `<h2 class="subhead">Posters &amp; media</h2><div class="medialist">${myMedia.map(m => mediaCard(m, root)).join('')}</div>` : ''}
 </main>`;
-  const ld = { '@context': 'https://schema.org', '@type': 'Person', name: p.name, jobTitle: p.role, affiliation: { '@type': 'CollegeOrUniversity', name: 'University of Cambridge' }, url: siteUrl + `people/${p.id}/`, ...(p.photo ? { image: isAbs(p.photo) ? p.photo : siteUrl + p.photo } : {}), ...(p.website ? { sameAs: [p.website] } : {}) };
+  const ld = { '@context': 'https://schema.org', '@type': 'Person', name: p.name, jobTitle: p.role, affiliation: { '@type': 'CollegeOrUniversity', name: 'University of Cambridge' }, url: siteUrl + `people/${p.id}/`, ...(p.photo ? { image: isAbs(p.photo) ? p.photo : siteUrl + p.photo } : {}), ...(p.website || p.orcid ? { sameAs: [p.website, p.orcid && `https://orcid.org/${p.orcid}`].filter(Boolean) } : {}) };
   return shell({ title: `${p.name} · ${site.title}`, desc: (p.bio || `${p.name}, ${p.role}`).slice(0, 200), root, urlPath: `people/${p.id}/`, body, ld, type: 'profile' });
 }
 
@@ -180,6 +187,7 @@ function indexPage() {
     PEOPLE: people.map(({ bioLong, email, ...r }) => r),
     PROJECTS: projects.map(({ description, video, captions, poster, ...r }) => r),
     PAPERS: papers, PRESS: press,
+    UNDERGRADS: undergrads.map(({ id, ...r }) => r),
     MEDIA: media.map(({ ...r }) => r),
     GROUPS, MEDIA_KINDS,
     PUBLICATIONS_URL: site.publicationsUrl || ''
@@ -279,6 +287,41 @@ function noscriptList(list, dir, label) {
   return `<noscript><ul>${list.map(x => `<li><a href="${dir}/${x.id}/">${esc(label(x))}</a></li>`).join('')}</ul></noscript>`;
 }
 
+/* The sheet link is encrypted at build time (AES-256-GCM, key from the shared
+   password via PBKDF2), so the published page contains no readable link. The browser decrypts it when the right password is typed (assets/manage.js). */
+function encrypt(html, password) {
+  const salt = crypto.randomBytes(16), iv = crypto.randomBytes(12), iter = 600000;
+  const cipher = crypto.createCipheriv('aes-256-gcm', crypto.pbkdf2Sync(password, salt, iter, 32, 'sha256'), iv);
+  const ct = Buffer.concat([cipher.update(html, 'utf8'), cipher.final(), cipher.getAuthTag()]); // WebCrypto expects ciphertext + tag
+  return { s: salt.toString('base64'), i: iv.toString('base64'), c: ct.toString('base64'), n: iter };
+}
+function managePage() {
+  const root = '../';
+  const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/edit`;
+  const body = `<main id="main" class="wrap detail">
+  <a class="crumb" href="${root}">← Home</a>
+  <h1>Edit the website</h1>
+  <div class="prose">
+    <form id="unlock" class="unlock" autocomplete="off">
+      <p>For lab members. Enter the shared password to open the editing sheet.</p>
+      <label class="sr" for="pw">Password</label>
+      <input id="pw" type="password" autocomplete="current-password" required>
+      <button class="chip best" type="submit">Open the sheet</button>
+      <p id="unlock-msg" role="alert" class="unlock-msg" hidden></p>
+    </form>
+    <p id="opening" role="status" hidden>Opening the sheet… <a id="opening-link" href="#">Click here if nothing happens</a>.</p>
+    <noscript><p>This page needs JavaScript.</p></noscript>
+    <h2 class="subhead" style="margin-top:40px">How it works</h2>
+    <p>Everything on this site comes from one shared Google Sheet. Change a row and the website updates itself, usually within an hour.</p>
+    <p><strong>Your profile:</strong> in the <em>People</em> tab, find your row and edit your role, bio, email, website, or paste a link to your photo in the <em>photo</em> column.</p>
+    <p><strong>Projects, papers, posters:</strong> add a row to <em>Projects</em>, <em>Papers</em> or <em>Media</em>. Spell people and projects exactly as they appear in their own tab. Separate several with a semicolon.</p>
+    <p>Never change the <em>id</em> column. The sheet's File → Version history can undo any mistake.</p>
+  </div>
+</main>
+<script type="application/json" id="vault">${JSON.stringify(encrypt(sheetUrl, editPassword)).replace(/</g, '\\u003c')}</script>`;
+  return shell({ title: `Edit the website · ${site.title}`, desc: 'For lab members.', root, urlPath: 'manage/', body, scripts: [asset('manage.js')], noindex: true });
+}
+
 function notFound() {
   const base = (() => { try { return new URL(siteUrl).pathname; } catch { return '/'; } })();
   const body = `<main id="main" class="wrap detail"><h1>Page not found</h1><div class="prose"><p>That page doesn't exist, or it has moved.</p><p><a href="${base}">Back to the home page</a></p></div></main>`;
@@ -312,15 +355,16 @@ if (model.errors.length) {
 }
 fs.rmSync(DIST, { recursive: true, force: true });
 copyDir(path.join(ROOT, 'public'), DIST);
-['site.css', 'a11y.js', 'home.js'].forEach(f => { fs.mkdirSync(path.join(DIST, 'assets'), { recursive: true }); fs.copyFileSync(path.join(ROOT, 'src/assets', f), path.join(DIST, 'assets', f)); });
+['site.css', 'a11y.js', 'home.js', 'manage.js'].forEach(f => { fs.mkdirSync(path.join(DIST, 'assets'), { recursive: true }); fs.copyFileSync(path.join(ROOT, 'src/assets', f), path.join(DIST, 'assets', f)); });
 write('favicon.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><rect width="30" height="30" rx="9" fill="#0B0C0E"/><path d="M6 20 C9 8, 13 8, 14 15 S19 22, 24 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="24" cy="9" r="2.4" fill="#2540FF"/></svg>\n`);
 write('index.html', indexPage());
 people.forEach(p => write(`people/${p.id}/index.html`, personPage(p)));
 projects.forEach(p => write(`projects/${p.id}/index.html`, projectPage(p)));
 write('404.html', notFound());
+if (manageEnabled) write('manage/index.html', managePage());
 write('content-version.json', JSON.stringify(lastUpdated) + '\n');
 const urls = ['', ...people.map(p => `people/${p.id}/`), ...projects.map(p => `projects/${p.id}/`)];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${esc(siteUrl + u)}</loc></url>`).join('\n')}\n</urlset>\n`);
-write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`);
+write('robots.txt', `User-agent: *\nAllow: /\nDisallow: /manage/\nSitemap: ${siteUrl}sitemap.xml\n`);
 if (/example\.org/.test(siteUrl)) console.warn('\nNote: "url" in content/site.json is still the placeholder, so canonical links and the sitemap point at example.org.');
 console.log(`\nBuilt ${people.length} people, ${projects.length} projects, ${papers.length} papers, ${media.length} media items → dist/ (${urls.length + 1} pages)`);

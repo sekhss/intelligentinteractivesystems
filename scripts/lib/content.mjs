@@ -7,8 +7,8 @@ import path from 'node:path';
 export const SCHEMA = {
   people: {
     sheet: 'People',
-    cols: ['name', 'role', 'group', 'status', 'areas', 'bio', 'bioLong', 'email', 'website', 'photo', 'years', 'now', 'advisor', 'chia', 'featured', 'contact', 'visible', 'id'],
-    lists: ['areas'], bools: ['chia', 'featured', 'contact', 'visible']
+    cols: ['name', 'role', 'group', 'status', 'areas', 'bio', 'bioLong', 'email', 'website', 'orcid', 'joined', 'photo', 'years', 'now', 'advisor', 'chia', 'featured', 'contact', 'visible', 'id'],
+    lists: ['areas'], bools: ['chia', 'featured', 'contact', 'visible'], nums: ['joined']
   },
   projects: {
     sheet: 'Projects',
@@ -29,6 +29,11 @@ export const SCHEMA = {
     sheet: 'Press',
     cols: ['title', 'outlet', 'date', 'by', 'url', 'visible', 'id'],
     lists: [], bools: ['visible']
+  },
+  undergrads: {
+    sheet: 'Undergrads',
+    cols: ['name', 'year', 'note', 'visible', 'id'],
+    lists: [], bools: ['visible'], nums: ['year']
   }
 };
 export const GROUPS = [['PI', 'Principal investigators'], ['Postdoc', 'Postdoctoral researchers'], ['PhD', 'Doctoral students'], ['Other', 'Visitors and others']];
@@ -36,6 +41,20 @@ export const MEDIA_KINDS = { poster: 'Poster', video: 'Video', talk: 'Talk', dem
 const URL_FIELDS = ['website', 'photo', 'video', 'poster', 'captions', 'link', 'file', 'thumb', 'url'];
 
 export const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();
+/* ORCID iDs: accept a bare id or a pasted orcid.org link, and check the ISO 7064 check digit so typos are caught. */
+export function parseOrcid(v) {
+  const m = String(v ?? '').toUpperCase().match(/(\d{4})-?(\d{4})-?(\d{4})-?(\d{3}[\dX])/);
+  if (!m) return null;
+  const digits = m.slice(1).join('');
+  let total = 0; for (const c of digits.slice(0, 15)) total = (total + Number(c)) * 2;
+  const check = (12 - (total % 11)) % 11, expect = check === 10 ? 'X' : String(check);
+  return digits[15] === expect ? m.slice(1).join('-') : null;
+}
+/* How two records of the same paper are recognised: by DOI, or failing that by title. */
+export const doiOf = s => { const m = String(s ?? '').match(/10\.\d{4,9}\/[^\s"<>]+/i); return m ? m[0].toLowerCase().replace(/[.,;)\]]+$/, '') : ''; };
+export const titleKey = t => norm(t).replace(/[^a-z0-9]/g, '');
+export const paperKeys = p => [doiOf(p.doi || p.link) && 'd:' + doiOf(p.doi || p.link), titleKey(p.title) && 't:' + titleKey(p.title)].filter(Boolean);
+
 export const slug = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48);
 
 /* http(s), mailto and site-relative paths only. Anything else (javascript:, data:) is rejected. */
@@ -77,6 +96,7 @@ export function buildModel(raw) {
   const areas = raw.areas;
 
   /* 1. clean rows, drop hidden ones, give everything an id */
+  const hidden = { people: [], projects: [], papers: [], media: [], press: [], undergrads: [] };
   const clean = (type) => {
     const sch = SCHEMA[type], seen = new Set(), out = [];
     (raw[type] || []).forEach((r0, i) => {
@@ -87,7 +107,11 @@ export function buildModel(raw) {
       }
       if (!Object.keys(r).length) return;
       const label = `${sch.sheet} row ${i + 1}${r.name || r.title ? ` ("${(r.name || r.title).slice(0, 40)}")` : ''}`;
-      if ('visible' in r && falsy(r.visible)) return;
+      if ('visible' in r && falsy(r.visible)) {
+        const hid = r.id || slug(r.name || r.title || '');
+        if (hid) hidden[type].push({ id: hid, name: r.name, title: r.title, link: r.link, doi: r.doi });
+        return;
+      }
       delete r.visible;
       (sch.bools || []).forEach(k => { if (k in r) r[k] = truthy(r[k]); });
       (sch.nums || []).forEach(k => { if (k in r) { const n = parseInt(r[k], 10); if (Number.isNaN(n)) { err(`${label}: "${k}" must be a number, got "${r[k]}".`); r[k] = 0; } else r[k] = n; } });
@@ -102,16 +126,18 @@ export function buildModel(raw) {
     });
     return out;
   };
-  const people = clean('people'), projects = clean('projects'), papers = clean('papers'), media = clean('media'), press = clean('press');
+  const people = clean('people'), projects = clean('projects'), papers = clean('papers'), media = clean('media'), press = clean('press'), undergrads = clean('undergrads');
 
   /* 2. resolve references written as ids or as plain names/titles */
   const lookup = items => { const m = new Map(); items.forEach(x => { [x.id, x.name, x.title, x.short].forEach(k => k && m.set(norm(k), x.id)); }); return m; };
   const L = { area: lookup(areas), person: lookup(people), project: lookup(projects) };
+  const LH = { area: new Map(), person: lookup(hidden.people), project: lookup(hidden.projects) };
   const ref = (kind, list, label, field) => {
     const out = [], m = L[kind];
     for (const item of list || []) {
       const hit = m.get(norm(item));
       if (hit) { out.push(hit); continue; }
+      if (LH[kind].has(norm(item))) continue; // points at something hidden: leave it out quietly
       const parts = item.includes(',') ? item.split(',').map(s => s.trim()).filter(Boolean) : [];
       if (parts.length && parts.every(p => m.has(norm(p)))) { parts.forEach(p => out.push(m.get(norm(p)))); continue; }
       err(`${label}: "${item}" in "${field}" doesn't match any ${kind}. Check the spelling against the ${kind === 'area' ? 'area ids (iis, hci, acc, hc, sci)' : kind === 'person' ? 'People tab' : 'Projects tab'}.`);
@@ -133,6 +159,8 @@ export function buildModel(raw) {
   people.forEach(p => {
     if (!p.name) err(`${p._label}: needs a name.`);
     if (!p.role) warn(`${p._label}: no role set.`);
+    if (p.orcid) { const o = parseOrcid(p.orcid); if (o) p.orcid = o; else { err(`${p._label}: "${p.orcid}" isn't a valid ORCID iD (it looks like 0000-0002-1825-0097).`); delete p.orcid; } }
+    if (p.joined !== undefined && !(p.joined >= 1990 && p.joined <= 2100)) { err(`${p._label}: "joined" must be a year, like 2024.`); delete p.joined; }
     p.group = groupOf(p.group);
     p.status = /alum|former|past/i.test(p.status || '') ? 'alumni' : 'current';
     if (p.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)) { err(`${p._label}: "${p.email}" isn't a valid email address.`); delete p.email; }
@@ -156,13 +184,36 @@ export function buildModel(raw) {
     else if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) err(`${p._label}: date must look like 2013-08-21.`);
   });
 
+  undergrads.forEach(u => {
+    if (!u.name) err(`${u._label}: needs a name.`);
+    if (u.year === undefined) err(`${u._label}: needs a year.`);
+    else if (!(u.year >= 1990 && u.year <= 2100)) err(`${u._label}: year must look like 2023.`);
+  });
+
+  /* 3b. papers fetched automatically from ORCID (content/papers-auto.json). A paper in the sheet, visible or hidden, always wins,
+     so editing a row in the sheet corrects an automatic paper and hiding it removes it. */
+  const known = new Set(); papers.forEach(p => paperKeys(p).forEach(k => known.add(k))); hidden.papers.forEach(p => paperKeys(p).forEach(k => known.add(k)));
+  const personById = Object.fromEntries(people.map(p => [p.id, p])), usedIds = new Set(papers.map(p => p.id));
+  for (const a of raw.autoPapers || []) {
+    if (!a || !a.title || !a.year) continue;
+    const keys = paperKeys(a); if (keys.some(k => known.has(k))) continue;
+    const who = (a.people || []).filter(id => personById[id]); if (!who.length) continue;
+    keys.forEach(k => known.add(k));
+    const link = a.link && safeUrl(a.link);
+    let id = (slug(a.title).slice(0, 36) + '-' + a.year).replace(/^-/, ''), n = 2; const base = id; while (usedIds.has(id)) id = base + '-' + n++;
+    usedIds.add(id);
+    papers.push({ id, title: a.title, year: +a.year, au: a.au || '', ve: a.ve || '', vs: a.vs || (a.ve || '').split(',')[0] || String(a.year), ...(link ? { link } : {}),
+      areas: [...new Set(who.flatMap(id => personById[id].areas))], people: who, projects: [], auto: true });
+  }
+  papers.sort((x, y) => y.year - x.year); // stable: the sheet's own order is kept within a year
+
   /* 4. derived links: a project's papers are the papers that name it */
   projects.forEach(p => { p.papers = papers.filter(x => x.projects.includes(p.id)).map(x => x.id); });
   people.forEach(p => { if (p.advisor === p.id) { err(`${p._label}: advisor can't be themselves.`); delete p.advisor; } });
 
   const strip = o => { delete o._label; return o; };
-  people.forEach(strip); projects.forEach(strip); papers.forEach(strip); media.forEach(strip); press.forEach(strip);
-  return { site, areas, people, projects, papers, media, press, errors, warnings };
+  people.forEach(strip); projects.forEach(strip); papers.forEach(strip); media.forEach(strip); press.forEach(strip); undergrads.forEach(strip);
+  return { site, areas, people, projects, papers, media, press, undergrads, errors, warnings };
 }
 
 export function loadRaw(dir) {
@@ -173,6 +224,8 @@ export function loadRaw(dir) {
     projects: readJSON(dir, 'projects', []),
     papers: readJSON(dir, 'papers', []),
     media: readJSON(dir, 'media', []),
-    press: readJSON(dir, 'press', [])
+    press: readJSON(dir, 'press', []),
+    undergrads: readJSON(dir, 'undergrads', []),
+    autoPapers: readJSON(dir, 'papers-auto', [])
   };
 }

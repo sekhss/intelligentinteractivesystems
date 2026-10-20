@@ -2,7 +2,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 /* All content comes from the build (content/*.json or the Google Sheet), embedded in the page. */
-const { AREAS, PEOPLE, PROJECTS, PAPERS, MEDIA, PRESS, GROUPS, MEDIA_KINDS, PUBLICATIONS_URL } = JSON.parse($('#site-data').textContent);
+const { AREAS, PEOPLE, PROJECTS, PAPERS, MEDIA, PRESS, UNDERGRADS, GROUPS, MEDIA_KINDS, PUBLICATIONS_URL } = JSON.parse($('#site-data').textContent);
 /* Motion follows the accessibility toggle (and the OS setting); loops re-check it every frame. */
 let reduce = window.IIS_A11Y ? IIS_A11Y.motionOff() : matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* word → what the page does when the hero keyboard decodes it */
@@ -97,8 +97,29 @@ function renderPeople() {
   const cur = PEOPLE.filter(p => !isAlumni(p)), alu = PEOPLE.filter(isAlumni);
   $('#peopleMount').innerHTML = tabsHTML('people', [['current', 'Current', cur.length], ['alumni', 'Alumni', alu.length]]) +
     panel('people', 'current', peopleGroups(cur)) +
-    panel('people', 'alumni', alu.length ? peopleGroups(alu) : '<p class="empty">Alumni will be listed here. Former members: ask the group to add you.</p>');
+    panel('people', 'alumni', undergradLine() + (alu.length ? peopleGroups(alu) : UNDERGRADS.length ? '' : '<p class="empty">Alumni will be listed here. Former members: ask the group to add you.</p>'));
 }
+
+/* ---------- undergraduate alumni: a small line that opens a scrollable, year-by-year list ---------- */
+function undergradLine() {
+  if (!UNDERGRADS.length) return '';
+  return `<p class="ug-line"><button type="button" class="linkbtn" id="ugOpen" aria-haspopup="dialog">Our undergraduate alumni <span class="n">${UNDERGRADS.length}</span> <span aria-hidden="true">→</span></button></p>`;
+}
+function openUndergrads(opener) {
+  const byYear = new Map();
+  UNDERGRADS.forEach(u => { if (!byYear.has(u.year)) byYear.set(u.year, []); byYear.get(u.year).push(u); });
+  const years = [...byYear.keys()].sort((a, b) => b - a);
+  const dlg = document.createElement('dialog');
+  dlg.className = 'lightbox'; dlg.setAttribute('aria-labelledby', 'ug-title');
+  dlg.innerHTML = `<div class="lb-head"><h2 id="ug-title">Our undergraduate alumni</h2><button type="button" class="chip" data-close>Close</button></div>
+    <div class="lb-body" tabindex="0">${years.map(y => `<section aria-labelledby="ug-${y}"><h3 id="ug-${y}" class="mono">${y}</h3><ul>${byYear.get(y).slice().sort((a, b) => a.name.localeCompare(b.name)).map(u => `<li>${esc(u.name)}${u.note ? ` <small>${esc(u.note)}</small>` : ''}</li>`).join('')}</ul></section>`).join('')}</div>`;
+  const close = () => { dlg.close(); };
+  dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-close]')) close(); });
+  dlg.addEventListener('close', () => { document.documentElement.classList.remove('lb-open'); dlg.remove(); if (opener && opener.isConnected) opener.focus(); });
+  document.body.append(dlg); document.documentElement.classList.add('lb-open'); dlg.showModal();
+  dlg.querySelector('.lb-body').focus();
+}
+document.addEventListener('click', e => { const b = e.target.closest('#ugOpen'); if (b) openUndergrads(b); });
 
 function paperCard(p) {
   const title = p.link ? `<a href="${esc(p.link)}">${esc(p.title)}</a>` : esc(p.title);

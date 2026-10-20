@@ -8,9 +8,9 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.utils import get_column_letter
 
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sheet-template')
-TABS = ['People', 'Projects', 'Papers', 'Media', 'Press']
+TABS = ['People', 'Projects', 'Papers', 'Media', 'Press', 'Undergrads']
 WIDTH = {'name': 26, 'title': 44, 'role': 28, 'bio': 60, 'bioLong': 60, 'blurb': 50, 'description': 60, 'au': 36, 'areas': 30, 'people': 32, 'projects': 32,
-         'email': 26, 'website': 30, 'photo': 40, 'link': 36, 'url': 40, 'video': 36, 'poster': 30, 'thumb': 30, 'file': 30, 'captions': 28, 've': 22, 'now': 30, 'award': 28, 'outlet': 24, 'by': 20, 'date': 14}
+         'email': 26, 'website': 30, 'photo': 40, 'orcid': 22, 'joined': 9, 'year': 8, 'note': 36, 'link': 36, 'url': 40, 'video': 36, 'poster': 30, 'thumb': 30, 'file': 30, 'captions': 28, 've': 22, 'now': 30, 'award': 28, 'outlet': 24, 'by': 20, 'date': 14}
 WRAP = {'bio', 'bioLong', 'blurb', 'description', 'title', 'au', 'areas', 'people', 'projects'}
 LISTS = {('People', 'status'): 'current,alumni', ('People', 'group'): 'PI,Postdoc,PhD,Other', ('Media', 'kind'): 'poster,video,talk,demo,other'}
 BOOLS = {'chia', 'featured', 'contact', 'visible', 'book'}
@@ -21,8 +21,9 @@ lines = [
     ('Intelligent Interactive Systems: website content', True),
     ('', False),
     ('This sheet feeds the lab website. Edit a row and the site updates itself (usually within an hour).', False),
+    ('You reached it from the "Lab members: edit this site" link at the bottom of the website. Please do not share the password or this link outside the group.', False),
     ('', False),
-    ('Tabs: People, Projects, Papers, Media, Press. One row per item. Do not rename the tabs or the column headings.', False),
+    ('Tabs: People, Projects, Papers, Media, Press, Undergrads. One row per item. Do not rename the tabs or the column headings.', False),
     ('', False),
     ('PHOTOS: paste a link to your photo in the "photo" column of the People tab.', True),
     ('  - Google Drive: upload the photo, Share > General access > "Anyone with the link", then Copy link and paste it.', False),
@@ -34,7 +35,12 @@ lines = [
     ('Do not change the "id" column: it forms the page address. Leave it empty for new rows.', False),
     ('To hide a row without deleting it, set "visible" to FALSE.', False),
     ('Web addresses must start with https://', False),
-    ('If a row has a mistake, the website keeps showing the last good version and the administrator is emailed what to fix.', False),
+    ('If a row has a mistake, the website keeps showing the last good version and the administrator is emailed what to fix. File > Version history can undo any edit.', False),
+    ('', False),
+    ('ORCID: put your ORCID iD in the "orcid" column of the People tab (it looks like 0000-0002-1825-0097). New papers on your ORCID record are added to the website automatically every week.', True),
+    ('To correct an automatic paper, add a row for it in the Papers tab with the same link; your row wins. To remove one, add that row and set "visible" to FALSE.', False),
+    ('', False),
+    ('UNDERGRADUATE ALUMNI: one row per person in the Undergrads tab: name, year (and an optional note). They appear in a pop-up under People > Alumni.', True),
     ('', False),
     ('Research areas (use these names in the "areas" column): Intelligent systems; HCI; Accessibility & AAC; Crowdsourcing; Interaction science', False),
 ]

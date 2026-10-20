@@ -26,6 +26,7 @@
   --ease: cubic-bezier(.2, .8, .2, 1);
   color-scheme: light;
 }
+[hidden]:not([hidden=until-found i]) { display: none !important; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--ink); font: 400 1.125rem/1.55 var(--font-body); -webkit-font-smoothing: antialiased; }
@@ -342,6 +343,25 @@ html[data-motion="off"] .item { transform: none !important; }
 .cta-contacts .who { font: 500 0.8125rem var(--font-mono); letter-spacing: .07em; text-transform: uppercase; opacity: .85; }
 .cta .mail a { text-decoration: none; }
 
+/* ---- undergraduate alumni lightbox ---- */
+.ug-line { margin: 0 0 22px; }
+.linkbtn { font: 600 1rem var(--font-body); color: var(--accent); background: none; border: 0; padding: 6px 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--accent-soft); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.linkbtn:hover { text-decoration-color: var(--accent); }
+.linkbtn .n { font: 500 0.8125rem var(--font-mono); color: var(--ink-3); }
+html.lb-open { overflow: hidden; }
+.lightbox { width: min(560px, calc(100vw - 24px)); max-height: min(80vh, 720px); border: 0; border-radius: 26px; padding: 0; background: var(--bg); color: var(--ink); box-shadow: 0 30px 80px -20px rgba(10, 15, 40, .5); flex-direction: column; overflow: hidden; }
+.lightbox[open] { display: flex; }
+.lightbox::backdrop { background: rgba(11, 12, 14, .55); }
+.lb-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 20px 24px 14px; border-bottom: 1px solid var(--line); flex: none; }
+.lb-head h2 { margin: 0; font: 700 1.5rem/1.1 var(--font-display); letter-spacing: -.03em; }
+.lb-body { overflow-y: auto; overscroll-behavior: contain; padding: 8px 24px 24px; flex: 1; min-height: 0; }
+.lb-body section { padding-top: 18px; }
+.lb-body h3 { margin: 0 0 8px; }
+.lb-body ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px 24px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+.lb-body li { font-weight: 500; line-height: 1.35; }
+.lb-body li small { display: block; color: var(--ink-3); font-weight: 400; font-size: .8125rem; }
+html[data-contrast="high"] .lightbox { border: 3px solid #000; }
+
 /* ---- accessibility modes ---- */
 html[data-text="large"] { font-size: 125%; }
 html[data-text="xlarge"] { font-size: 150%; }
@@ -371,3 +391,8 @@ html[data-contrast="high"] .cta { background: #0000C8; }
   .a11y-panel { left: clamp(16px, 4vw, 48px); right: clamp(16px, 4vw, 48px); width: auto; top: calc(100% - 6px); }
 }
 .updated { font-weight: 600; color: var(--ink-3); }
+.unlock { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.unlock > p { flex-basis: 100%; margin: 0; }
+.unlock input { font: 500 1.125rem var(--font-body); color: var(--ink); background: var(--surface); border: 2px solid transparent; border-radius: 14px; padding: 14px 18px; min-width: min(100%, 320px); }
+.unlock input:focus { outline: none; background: var(--bg); border-color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+.unlock-msg { color: #B02A00; font-weight: 600; }
