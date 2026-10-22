@@ -8,11 +8,11 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.utils import get_column_letter
 
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sheet-template')
-TABS = ['People', 'Projects', 'Papers', 'Media', 'Press', 'Undergrads']
+TABS = ['People', 'Projects', 'Papers', 'Media', 'Press', 'Undergrads', 'Areas']
 WIDTH = {'name': 26, 'title': 44, 'role': 28, 'bio': 60, 'bioLong': 60, 'blurb': 50, 'description': 60, 'au': 36, 'areas': 30, 'people': 32, 'projects': 32,
-         'email': 26, 'website': 30, 'photo': 40, 'orcid': 22, 'joined': 9, 'year': 8, 'note': 36, 'link': 36, 'url': 40, 'video': 36, 'poster': 30, 'thumb': 30, 'file': 30, 'captions': 28, 've': 22, 'now': 30, 'award': 28, 'outlet': 24, 'by': 20, 'date': 14}
+         'email': 26, 'website': 30, 'photo': 40, 'orcid': 22, 'joined': 9, 'year': 8, 'note': 36, 'link': 36, 'url': 40, 'video': 36, 'poster': 30, 'thumb': 30, 'file': 30, 'captions': 28, 've': 22, 'now': 30, 'award': 28, 'outlet': 24, 'by': 20, 'date': 14, 'short': 26, 'word': 14, 'color': 12}
 WRAP = {'bio', 'bioLong', 'blurb', 'description', 'title', 'au', 'areas', 'people', 'projects'}
-LISTS = {('People', 'status'): 'current,alumni', ('People', 'group'): 'PI,Postdoc,PhD,Other', ('Media', 'kind'): 'poster,video,talk,demo,other'}
+LISTS = {('People', 'status'): 'current,alumni', ('People', 'group'): 'PI,Postdoc,PhD,MPhil,Visitor,Other', ('Media', 'kind'): 'poster,video,talk,demo,other'}
 BOOLS = {'chia', 'featured', 'contact', 'visible', 'book'}
 
 wb = Workbook()
@@ -23,7 +23,7 @@ lines = [
     ('This sheet feeds the lab website. Edit a row and the site updates itself (usually within an hour).', False),
     ('You reached it from the "Lab members: edit this site" link at the bottom of the website. Please do not share the password or this link outside the group.', False),
     ('', False),
-    ('Tabs: People, Projects, Papers, Media, Press, Undergrads. One row per item. Do not rename the tabs or the column headings.', False),
+    ('Tabs: People, Projects, Papers, Media, Press, Undergrads, Areas. One row per item. Do not rename the tabs or the column headings.', False),
     ('', False),
     ('PHOTOS: paste a link to your photo in the "photo" column of the People tab.', True),
     ('  - Google Drive: upload the photo, Share > General access > "Anyone with the link", then Copy link and paste it.', False),
@@ -42,7 +42,7 @@ lines = [
     ('', False),
     ('UNDERGRADUATE ALUMNI: one row per person in the Undergrads tab: name, year (and an optional note). They appear in a pop-up under People > Alumni.', True),
     ('', False),
-    ('Research areas (use these names in the "areas" column): Intelligent systems; HCI; Accessibility & AAC; Crowdsourcing; Interaction science', False),
+    ('RESEARCH AREAS: the "areas" column must use the "short" names listed in the Areas tab. To add an area, add a row there (name, short, color like #0F8B8D) BEFORE using it elsewhere.', True),
 ]
 for i, (t, b) in enumerate(lines, 1):
     c = guide.cell(row=i, column=1, value=t); c.font = Font(bold=b, size=14 if i == 1 else 11)

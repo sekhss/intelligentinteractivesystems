@@ -5,6 +5,11 @@ import path from 'node:path';
 
 /* Column order here is also the column order of the Google Sheet template. */
 export const SCHEMA = {
+  areas: {
+    sheet: 'Areas',
+    cols: ['name', 'short', 'word', 'color', 'visible', 'id'],
+    lists: [], bools: ['visible']
+  },
   people: {
     sheet: 'People',
     cols: ['name', 'role', 'group', 'status', 'areas', 'bio', 'bioLong', 'email', 'website', 'orcid', 'joined', 'photo', 'years', 'now', 'advisor', 'chia', 'featured', 'contact', 'visible', 'id'],
@@ -36,7 +41,7 @@ export const SCHEMA = {
     lists: [], bools: ['visible'], nums: ['year']
   }
 };
-export const GROUPS = [['PI', 'Principal investigators'], ['Postdoc', 'Postdoctoral researchers'], ['PhD', 'Doctoral students'], ['Other', 'Visitors and others']];
+export const GROUPS = [['PI', 'Principal investigators'], ['Postdoc', 'Postdoctoral researchers'], ['PhD', 'Doctoral students'], ['MPhil', 'MPhil students'], ['Visitor', 'Visitors'], ['Other', 'Others']];
 export const MEDIA_KINDS = { poster: 'Poster', video: 'Video', talk: 'Talk', demo: 'Demo', other: 'Other' };
 const URL_FIELDS = ['website', 'photo', 'video', 'poster', 'captions', 'link', 'file', 'thumb', 'url'];
 
@@ -80,6 +85,8 @@ function groupOf(g) {
   if (!s) return 'PhD';
   if (/^pi$|principal|^lead|faculty|academic|professor/.test(s)) return 'PI';
   if (/post|research (associate|fellow)/.test(s)) return 'Postdoc';
+  if (/visit/.test(s)) return 'Visitor';
+  if (/mphil|master|msc/.test(s)) return 'MPhil';
   if (/phd|doctor|student/.test(s)) return 'PhD';
   return 'Other';
 }
@@ -93,10 +100,9 @@ export function buildModel(raw) {
   const errors = [], warnings = [];
   const err = m => errors.push(m), warn = m => warnings.push(m);
   const site = raw.site;
-  const areas = raw.areas;
 
   /* 1. clean rows, drop hidden ones, give everything an id */
-  const hidden = { people: [], projects: [], papers: [], media: [], press: [], undergrads: [] };
+  const hidden = { areas: [], people: [], projects: [], papers: [], media: [], press: [], undergrads: [] };
   const clean = (type) => {
     const sch = SCHEMA[type], seen = new Set(), out = [];
     (raw[type] || []).forEach((r0, i) => {
@@ -109,7 +115,7 @@ export function buildModel(raw) {
       const label = `${sch.sheet} row ${i + 1}${r.name || r.title ? ` ("${(r.name || r.title).slice(0, 40)}")` : ''}`;
       if ('visible' in r && falsy(r.visible)) {
         const hid = r.id || slug(r.name || r.title || '');
-        if (hid) hidden[type].push({ id: hid, name: r.name, title: r.title, link: r.link, doi: r.doi });
+        if (hid) hidden[type].push({ id: hid, name: r.name, short: r.short, title: r.title, link: r.link, doi: r.doi });
         return;
       }
       delete r.visible;
@@ -126,12 +132,12 @@ export function buildModel(raw) {
     });
     return out;
   };
-  const people = clean('people'), projects = clean('projects'), papers = clean('papers'), media = clean('media'), press = clean('press'), undergrads = clean('undergrads');
+  const areas = clean('areas'), people = clean('people'), projects = clean('projects'), papers = clean('papers'), media = clean('media'), press = clean('press'), undergrads = clean('undergrads');
 
   /* 2. resolve references written as ids or as plain names/titles */
   const lookup = items => { const m = new Map(); items.forEach(x => { [x.id, x.name, x.title, x.short].forEach(k => k && m.set(norm(k), x.id)); }); return m; };
   const L = { area: lookup(areas), person: lookup(people), project: lookup(projects) };
-  const LH = { area: new Map(), person: lookup(hidden.people), project: lookup(hidden.projects) };
+  const LH = { area: lookup(hidden.areas), person: lookup(hidden.people), project: lookup(hidden.projects) };
   const ref = (kind, list, label, field) => {
     const out = [], m = L[kind];
     for (const item of list || []) {
@@ -140,7 +146,12 @@ export function buildModel(raw) {
       if (LH[kind].has(norm(item))) continue; // points at something hidden: leave it out quietly
       const parts = item.includes(',') ? item.split(',').map(s => s.trim()).filter(Boolean) : [];
       if (parts.length && parts.every(p => m.has(norm(p)))) { parts.forEach(p => out.push(m.get(norm(p)))); continue; }
-      err(`${label}: "${item}" in "${field}" doesn't match any ${kind}. Check the spelling against the ${kind === 'area' ? 'area ids (iis, hci, acc, hc, sci)' : kind === 'person' ? 'People tab' : 'Projects tab'}.`);
+      if (kind === 'area' && parts.length) { /* a multi-select dropdown joins its choices with commas */
+        parts.forEach(p => m.has(norm(p)) ? out.push(m.get(norm(p))) : LH.area.has(norm(p)) || warn(`${label}: "${p}" in "${field}" isn't one of the research areas, so it was ignored. Use one of: ${areas.map(a => a.short || a.name).join('; ')}. (New areas can be added in the Areas tab.)`));
+        continue;
+      }
+      if (kind === 'area') { warn(`${label}: "${item}" in "${field}" isn't one of the research areas, so it was ignored. Use one of: ${areas.map(a => a.short || a.name).join('; ')}. (New areas can be added in the Areas tab.)`); continue; }
+      err(`${label}: "${item}" in "${field}" doesn't match any ${kind}. Check the spelling against the ${kind === 'person' ? 'People tab' : 'Projects tab'}.`);
     }
     return [...new Set(out)];
   };
@@ -156,6 +167,16 @@ export function buildModel(raw) {
   });
 
   /* 3. required fields and normalisation */
+  const FALLBACK = ['#0E7C86', '#C2410C', '#7C3AED', '#B45309', '#BE185D', '#1D4ED8', '#4D7C0F', '#9F1239'];
+  if (!areas.length) err('The Areas list is empty: the site needs at least one research area.');
+  areas.forEach((a, i) => {
+    if (!a.name && !a.short) { err(`${a._label}: needs a name.`); return; }
+    a.name ||= a.short; a.short ||= a.name;
+    a.word = norm(a.word || a.short.split(/[\s&,]+/)[0]);
+    if (a.color && !/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(a.color)) { warn(`${a._label}: color "${a.color}" should look like #0F8B8D, so a default was used.`); delete a.color; }
+    if (!a.color) a.color = FALLBACK[i % FALLBACK.length];
+    a.c = `var(--a-${a.id})`;
+  });
   people.forEach(p => {
     if (!p.name) err(`${p._label}: needs a name.`);
     if (!p.role) warn(`${p._label}: no role set.`);
@@ -212,7 +233,7 @@ export function buildModel(raw) {
   people.forEach(p => { if (p.advisor === p.id) { err(`${p._label}: advisor can't be themselves.`); delete p.advisor; } });
 
   const strip = o => { delete o._label; return o; };
-  people.forEach(strip); projects.forEach(strip); papers.forEach(strip); media.forEach(strip); press.forEach(strip); undergrads.forEach(strip);
+  areas.forEach(strip); people.forEach(strip); projects.forEach(strip); papers.forEach(strip); media.forEach(strip); press.forEach(strip); undergrads.forEach(strip);
   return { site, areas, people, projects, papers, media, press, undergrads, errors, warnings };
 }
 

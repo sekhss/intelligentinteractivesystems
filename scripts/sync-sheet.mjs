@@ -18,7 +18,7 @@ const fail = msgs => { console.error('\nSheet sync stopped. Nothing was changed.
 const timeout = () => AbortSignal.timeout(30000);
 
 /* Optional tabs may be missing from older copies of the sheet; the rest must exist. */
-const OPTIONAL = new Set(['media', 'press', 'undergrads']);
+const OPTIONAL = new Set(['areas', 'media', 'press', 'undergrads']);
 async function fetchTab(sheetName, optional) {
   const base = (process.env.SHEET_BASE || 'https://docs.google.com').replace(/\/$/, '');
   const url = `${base}/spreadsheets/d/${encodeURIComponent(id)}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
@@ -30,7 +30,7 @@ async function fetchTab(sheetName, optional) {
 }
 
 /* Google quietly returns the FIRST tab when asked for a tab that doesn't exist, so check the headings really belong to this tab. */
-const KEY_COLS = { people: ['name'], projects: ['title'], papers: ['title', 'year'], media: ['title'], press: ['title', 'url'], undergrads: ['name', 'year'] };
+const KEY_COLS = { areas: ['name', 'short'], people: ['name'], projects: ['title'], papers: ['title', 'year'], media: ['title'], press: ['title', 'url'], undergrads: ['name', 'year'] };
 function rowsToObjects(type, csv) {
   const sch = SCHEMA[type], rows = parseCSV(csv);
   if (!rows.length) return [];
@@ -81,6 +81,9 @@ for (const type of Object.keys(SCHEMA)) {
   console.log(`${rows.length} rows`);
 }
 for (const t of ['people', 'projects', 'papers']) if (!fetched[t].length) fail(`The ${SCHEMA[t].sheet} tab came back empty. Refusing to publish an empty ${t} list.`);
+
+/* No Areas tab yet: keep the areas already in content/. */
+if (!fetched.areas.length) delete fetched.areas;
 
 for (const o of fetched.people) await localise(o, 'photo', 'person');
 for (const o of fetched.projects) await localise(o, 'poster', 'project');

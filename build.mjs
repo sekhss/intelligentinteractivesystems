@@ -41,7 +41,7 @@ media.forEach(m => { ['thumb', 'file'].forEach(f => checkLocal(m, f, 'Media: ' +
 
 function videoInfo(url) {
   if (!url) return null; let m;
-  if ((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/))) return { kind: 'youtube', embed: `https://www.youtube-nocookie.com/embed/${m[1]}`, poster: `https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg` };
+  if ((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/|v\/)|youtu\.be\/)([\w-]{11})/))) return { kind: 'youtube', embed: `https://www.youtube-nocookie.com/embed/${m[1]}`, poster: `https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg` };
   if ((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/))) return { kind: 'vimeo', embed: `https://player.vimeo.com/video/${m[1]}` };
   return { kind: 'file', src: url };
 }
@@ -78,6 +78,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Instrument+Sans:wght@400..700&family=DM+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="${root}${asset('site.css')}">
+<style>:root{${areas.map(a => `--a-${a.id}:${a.color}`).join(';')}}</style>
 <script>${initJs}</script>
 ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : ''}
 </head>

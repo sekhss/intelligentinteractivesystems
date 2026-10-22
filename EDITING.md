@@ -10,7 +10,7 @@ You don't need an account or any technical knowledge.
 
 Please don't share the password or the sheet link outside the group.
 
-The sheet has six tabs: **People**, **Projects**, **Papers**, **Media**, **Press**, **Undergrads**. One row per item. A **Start here** tab repeats these instructions.
+The sheet has seven tabs: **People**, **Projects**, **Papers**, **Media**, **Press**, **Undergrads**, **Areas**. One row per item. A **Start here** tab repeats these instructions.
 
 ## Update your own profile
 
@@ -68,6 +68,12 @@ Put the project title in `projects` and your name in `people`, and the paper sho
 ## Add a poster or media item
 
 New row in **Media**. `kind` is one of `poster`, `video`, `talk`, `demo`. Use `link` for the web address and `thumb` for a preview image.
+
+## Add a research area
+
+New row in **Areas**: `name` (full name), `short` (the label used on the site and in every `areas` column), and `color` (like `#0F8B8D`).
+`word` (optional) is a keyword for the search box. Add the area here **before** using it in People, Projects or Papers; a name that isn't listed is ignored with a warning.
+Don't change `id` on existing rows.
 
 ## Rules that keep the site healthy
 
