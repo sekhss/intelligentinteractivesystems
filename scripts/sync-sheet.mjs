@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 /* Pulls the lab's Google Sheet into content/*.json.
-   The sheet must be shared as "Anyone with the link" (Editor, so lab members can edit without accounts). Set SHEET_ID in the environment, or "sheetId" in content/sheet.json.
+   Preferred source: the sheet published to the web (File > Share > Publish to web > Entire document,
+   with "Automatically republish when changes are made" on). Set "pubId" and "gids" (sheet name -> gid)
+   in content/sheet.json. This avoids a real bug in Google's gviz/tq query endpoint that, for some
+   sheets, merges several rows together into one on export even though the live sheet is fine.
+   Falls back to gviz/tq by sheet name if no pubId/gids are configured. Set SHEET_ID in the
+   environment, or "sheetId" in content/sheet.json, for that fallback.
    Everything is validated first; if anything is wrong nothing is written and the previous content stays live. */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -12,7 +17,7 @@ const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = path.join(ROOT, 'content');
 const cfg = readJSON(CONTENT, 'sheet', {});
 const id = process.env.SHEET_ID || cfg.sheetId;
-if (!id) { console.log('No SHEET_ID set: skipping sync and building from the files in content/.'); process.exit(0); }
+if (!id && !cfg.pubId) { console.log('No SHEET_ID or pubId set: skipping sync and building from the files in content/.'); process.exit(0); }
 
 const fail = msgs => { console.error('\nSheet sync stopped. Nothing was changed.\n' + [].concat(msgs).map(m => '  - ' + m).join('\n') + '\n'); process.exit(1); };
 const timeout = () => AbortSignal.timeout(30000);
@@ -21,7 +26,10 @@ const timeout = () => AbortSignal.timeout(30000);
 const OPTIONAL = new Set(['areas', 'media', 'press', 'undergrads']);
 async function fetchTab(sheetName, optional) {
   const base = (process.env.SHEET_BASE || 'https://docs.google.com').replace(/\/$/, '');
-  const url = `${base}/spreadsheets/d/${encodeURIComponent(id)}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+  const gid = cfg.gids && cfg.gids[sheetName];
+  const url = (cfg.pubId && gid != null)
+    ? `${base}/spreadsheets/d/e/${encodeURIComponent(cfg.pubId)}/pub?gid=${encodeURIComponent(gid)}&single=true&output=csv`
+    : `${base}/spreadsheets/d/${encodeURIComponent(id)}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
   let res;
   try { res = await fetch(url, { signal: timeout() }); } catch (e) { fail(`Could not reach Google Sheets (${e.message}).`); }
   const text = await res.text();

@@ -1,401 +1,257 @@
 [
   {
-    "id": "bo-chi",
-    "year": 2026,
-    "vs": "CHI 2026",
+    "title": "MESSENGER: Memory-Enhanced Sequential Scene Flow Estimation via Autoregressive Next-Frame Forecasting",
+    "year": "2026",
+    "au": "Liu, Li, Liu, He, Wang, Kristensson",
+    "ve": "NeurIPS 2026",
+    "vs": "NeurIPS 2026",
+    "link": "https://arxiv.org/abs/2610.10759",
+    "projects": "Interactive world model",
+    "people": "Jiuming Liu; Per Ola Kristensson",
+    "areas": "HCI; Computer vision"
+  },
+  {
     "title": "Cost-aware Bayesian optimization for interactive devices",
+    "year": "2026",
     "au": "Langerak, Zhang, Wang, Kristensson, Oulasvirta",
     "ve": "CHI 2026",
+    "vs": "CHI 2026",
     "award": "Best Paper Honourable Mention",
-    "areas": [
-      "iis",
-      "sci"
-    ],
-    "people": [
-      "pok"
-    ],
-    "projects": [
-      "p-bo"
-    ]
+    "projects": "Bayesian optimisation for interaction design",
+    "people": "Per Ola Kristensson",
+    "areas": "Intelligent systems; Interaction science",
+    "id": "bo-chi"
   },
   {
-    "id": "myo-dis",
-    "year": 2026,
-    "vs": "DIS 2026",
     "title": "MyoInteract: a framework for fast prototyping of biomechanical HCI tasks using reinforcement learning",
+    "year": "2026",
     "au": "Bhattarai, Selder, Fischer, Fleig, Kristensson",
     "ve": "DIS 2026",
-    "areas": [
-      "sci",
-      "iis"
-    ],
-    "people": [
-      "ab",
-      "ff",
-      "pok"
-    ],
-    "projects": [
-      "p-sim"
-    ]
+    "vs": "DIS 2026",
+    "projects": "Biomechanical simulated users",
+    "people": "Ankit Bhattarai; Florian Fischer; Per Ola Kristensson",
+    "areas": "Interaction science; Intelligent systems",
+    "id": "myo-dis"
   },
   {
-    "id": "steer",
-    "year": 2026,
-    "vs": "UIST 2026",
     "title": "Do simulated users steer like humans? A biomechanical reinforcement learning testbed for steering law evaluation",
+    "year": "2026",
     "au": "Selder, Bhattarai, Fischer, Kristensson, Fleig",
     "ve": "UIST 2026",
-    "areas": [
-      "sci",
-      "iis"
-    ],
-    "people": [
-      "ab",
-      "ff",
-      "pok"
-    ],
-    "projects": [
-      "p-sim"
-    ]
+    "vs": "UIST 2026",
+    "projects": "Biomechanical simulated users",
+    "people": "Ankit Bhattarai; Florian Fischer; Per Ola Kristensson",
+    "areas": "Interaction science; Intelligent systems",
+    "id": "steer"
   },
   {
-    "id": "unbounded",
-    "year": 2026,
-    "vs": "CHI 2026",
     "title": "Unbounded: object-boundary interactions in mixed reality",
+    "year": "2026",
     "au": "Lyu, Kristensson",
     "ve": "CHI 2026",
-    "areas": [
-      "hci"
-    ],
-    "people": [
-      "zl",
-      "pok"
-    ],
-    "projects": [
-      "p-mr"
-    ]
-  },
-  {
-    "id": "objestures",
-    "year": 2026,
     "vs": "CHI 2026",
-    "title": "Objestures: everyday objects meet mid-air gestures for expressive interaction",
-    "au": "Lyu, Kristensson",
-    "ve": "CHI 2026",
-    "areas": [
-      "hci"
-    ],
-    "people": [
-      "zl",
-      "pok"
-    ],
-    "projects": [
-      "p-mr"
-    ]
+    "link": "https://doi.org/10.1145/3772318.3791741",
+    "projects": "Boundaries in mixed reality",
+    "people": "Zhuoyue Lyu; Per Ola Kristensson",
+    "areas": "HCI",
+    "id": "unbounded"
   },
   {
-    "id": "openset",
-    "year": 2026,
-    "vs": "ISMAR 2026",
+    "title": "Objestures: everyday objects meet mid-air gestures for expressive interaction",
+    "year": "2026",
+    "au": "Lyu, Kristensson",
+    "ve": "CHI 2026",
+    "vs": "CHI 2026",
+    "link": "https://doi.org/10.1145/3772318.3791742",
+    "projects": "Objects and gestures in mixed reality",
+    "people": "Zhuoyue Lyu; Per Ola Kristensson",
+    "areas": "HCI",
+    "id": "objestures"
+  },
+  {
     "title": "Tackling open set gesture and voice interaction in 3D with runtime code generation",
+    "year": "2026",
     "au": "Heinbaugh, Song, Dudley, Kristensson",
     "ve": "ISMAR 2026",
-    "areas": [
-      "hci",
-      "iis"
-    ],
-    "people": [
-      "ch",
-      "jd",
-      "pok"
-    ],
-    "projects": [
-      "p-open"
-    ]
+    "vs": "ISMAR 2026",
+    "projects": "Open-set gesture and voice in 3D",
+    "people": "Clare Heinbaugh; John Dudley; Per Ola Kristensson",
+    "areas": "HCI; Intelligent systems",
+    "id": "openset"
   },
   {
-    "id": "envision",
-    "year": 2026,
-    "vs": "TVCG 2026",
     "title": "EnvisionVR: a scene interpretation tool for visual accessibility in virtual reality",
+    "year": "2026",
     "au": "Chen, Galindo Esparza, Garaj, Kristensson, Dudley",
     "ve": "IEEE TVCG 32(2)",
-    "areas": [
-      "acc",
-      "hci"
-    ],
-    "people": [
-      "jc",
-      "jd",
-      "pok"
-    ],
-    "projects": [
-      "p-xr"
-    ]
+    "vs": "TVCG 2026",
+    "projects": "Accessible virtual and augmented reality",
+    "people": "Junlong Chen; John Dudley; Per Ola Kristensson",
+    "areas": "Accessibility & AAC; HCI",
+    "id": "envision"
   },
   {
-    "id": "rich",
-    "year": 2026,
-    "vs": "CHIWORK 2026",
     "title": "Interactive rich pictures: surfacing hidden work in complex systems",
+    "year": "2026",
     "au": "Hamid, Kristensson",
     "ve": "CHIWORK 2026, late-breaking work",
-    "areas": [
-      "hci",
-      "iis"
-    ],
-    "people": [
-      "ah",
-      "pok"
-    ],
-    "projects": [
-      "p-pic"
-    ]
+    "vs": "CHIWORK 2026",
+    "projects": "Interactive rich pictures",
+    "people": "Aleesha Hamid; Per Ola Kristensson",
+    "areas": "HCI; Intelligent systems",
+    "id": "rich"
   },
   {
-    "id": "shi",
-    "year": 2026,
-    "vs": "TOCHI 2026",
     "title": "Preemptive, buffered or guided? Empirical studies on human-AI interaction strategies for software test case development",
+    "year": "2026",
     "au": "Shi, Kristensson",
     "ve": "ACM TOCHI",
-    "areas": [
-      "iis",
-      "hci"
-    ],
-    "people": [
-      "bs",
-      "pok"
-    ],
-    "projects": [
-      "p-llm"
-    ]
+    "vs": "TOCHI 2026",
+    "projects": "Human–AI interaction in software testing",
+    "people": "Billy Shi; Per Ola Kristensson",
+    "areas": "Intelligent systems; HCI",
+    "id": "shi"
   },
   {
-    "id": "bo-csur",
-    "year": 2026,
-    "vs": "CSUR 2026",
     "title": "Putting the human back in the loop: a review of interactive Bayesian optimization",
+    "year": "2026",
     "au": "Dudley, Oulasvirta, Chan, Kristensson",
     "ve": "ACM Computing Surveys",
-    "areas": [
-      "iis",
-      "sci"
-    ],
-    "people": [
-      "jd",
-      "pok"
-    ],
-    "projects": [
-      "p-bo"
-    ]
+    "vs": "CSUR 2026",
+    "link": "https://doi.org/10.1145/3805804",
+    "projects": "Bayesian optimisation for interaction design",
+    "people": "John Dudley; Per Ola Kristensson",
+    "areas": "Intelligent systems; Interaction science",
+    "id": "bo-csur"
   },
   {
-    "id": "sensorimotor",
-    "year": 2026,
-    "vs": "TOCHI 2026",
     "title": "Sensorimotor regularities as alignment between humans and large language models",
+    "year": "2026",
     "au": "Li, Hu, Kristensson",
     "ve": "ACM TOCHI 33(2)",
-    "areas": [
-      "iis",
-      "sci"
-    ],
-    "people": [
-      "pok"
-    ],
-    "projects": []
+    "vs": "TOCHI 2026",
+    "people": "Per Ola Kristensson",
+    "areas": "Intelligent systems; Interaction science",
+    "id": "sensorimotor"
   },
   {
-    "id": "inplane",
-    "year": 2025,
-    "vs": "SUI 2025",
     "title": "Probabilistic in-plane detection for mid-air virtual surface interactions",
+    "year": "2025",
     "au": "Fischer, Yu, Johns, Kristensson, Dudley",
     "ve": "SUI 2025",
+    "vs": "SUI 2025",
     "award": "Best Paper Award",
     "link": "https://doi.org/10.1145/3694907.3765937",
-    "areas": [
-      "hci",
-      "iis"
-    ],
-    "people": [
-      "ff",
-      "jd",
-      "pok"
-    ],
-    "projects": [
-      "p-text"
-    ]
+    "projects": "Text entry in mixed reality",
+    "people": "Florian Fischer; John Dudley; Per Ola Kristensson",
+    "areas": "HCI; Intelligent systems",
+    "id": "inplane"
   },
   {
-    "id": "handows",
-    "year": 2025,
-    "vs": "ISMAR 2025",
     "title": "Handows: a palm-based interactive multi-window management system in virtual reality",
+    "year": "2025",
     "au": "Wang, Zhou, Ren, Kristensson, Li",
     "ve": "IEEE TVCG, ISMAR 2025",
+    "vs": "ISMAR 2025",
     "award": "Best Journal Paper Honourable Mention",
     "link": "https://doi.org/10.1109/TVCG.2025.3616843",
-    "areas": [
-      "hci"
-    ],
-    "people": [
-      "pok"
-    ],
-    "projects": []
+    "people": "Per Ola Kristensson",
+    "areas": "HCI",
+    "id": "handows"
   },
   {
-    "id": "hardware",
-    "year": 2025,
-    "vs": "CHI 2025",
     "title": "Making hardware devices at scale is still hard: challenges and opportunities for the HCI community",
+    "year": "2025",
     "au": "Kang, Hodges, Kristensson",
     "ve": "CHI 2025",
+    "vs": "CHI 2025",
     "award": "Best Paper Honourable Mention",
     "link": "https://doi.org/10.1145/3706598.3713214",
-    "areas": [
-      "hci",
-      "sci"
-    ],
-    "people": [
-      "pok"
-    ],
-    "projects": []
+    "people": "Per Ola Kristensson",
+    "areas": "HCI; Interaction science",
+    "id": "hardware"
   },
   {
-    "id": "exclusion",
-    "year": 2025,
-    "vs": "CHI 2025",
     "title": "Exclusion rates among disabled and older users of virtual and augmented reality",
+    "year": "2025",
     "au": "Galindo Esparza, Dudley, Garaj, Kristensson",
     "ve": "CHI 2025",
+    "vs": "CHI 2025",
     "link": "https://doi.org/10.1145/3706598.3713377",
-    "areas": [
-      "acc",
-      "hci"
-    ],
-    "people": [
-      "jd",
-      "pok"
-    ],
-    "projects": [
-      "p-xr"
-    ]
+    "projects": "Accessible virtual and augmented reality",
+    "people": "John Dudley; Per Ola Kristensson",
+    "areas": "Accessibility & AAC; HCI",
+    "id": "exclusion"
   },
   {
-    "id": "hu-chi",
-    "year": 2025,
-    "vs": "CHI 2025",
     "title": "Seeing and touching the air: unraveling eye-hand coordination in mid-air gesture typing for mixed reality",
+    "year": "2025",
     "au": "Hu, Dudley, Kristensson",
     "ve": "CHI 2025",
+    "vs": "CHI 2025",
     "link": "https://doi.org/10.1145/3706598.3713743",
-    "areas": [
-      "hci",
-      "iis"
-    ],
-    "people": [
-      "jd",
-      "pok"
-    ],
-    "projects": [
-      "p-text"
-    ]
+    "projects": "Text entry in mixed reality",
+    "people": "John Dudley; Per Ola Kristensson",
+    "areas": "HCI; Intelligent systems",
+    "id": "hu-chi"
   },
   {
-    "id": "reward",
-    "year": 2025,
-    "vs": "UIST 2025",
     "title": "Demystifying reward design in reinforcement learning for upper extremity interaction",
+    "year": "2025",
     "au": "Selder, Fischer, Kristensson, Fleig",
     "ve": "UIST 2025",
+    "vs": "UIST 2025",
     "link": "https://doi.org/10.1145/3746059.3747779",
-    "areas": [
-      "sci",
-      "iis"
-    ],
-    "people": [
-      "ff",
-      "pok"
-    ],
-    "projects": [
-      "p-sim"
-    ]
+    "projects": "Biomechanical simulated users",
+    "people": "Florian Fischer; Per Ola Kristensson",
+    "areas": "Interaction science; Intelligent systems",
+    "id": "reward"
   },
   {
-    "id": "intro",
-    "year": 2025,
-    "vs": "OUP 2025",
     "title": "Introduction to Human-Computer Interaction",
+    "year": "2025",
     "au": "Hornbæk, Kristensson, Oulasvirta",
     "ve": "Oxford University Press",
-    "book": true,
+    "vs": "OUP 2025",
     "link": "https://global.oup.com/academic/product/introduction-to-human-computer-interaction-9780192864543",
-    "areas": [
-      "hci",
-      "sci"
-    ],
-    "people": [
-      "pok"
-    ],
-    "projects": []
+    "book": "TRUE",
+    "people": "Per Ola Kristensson",
+    "areas": "HCI; Interaction science",
+    "id": "intro"
   },
   {
-    "id": "eyetyping",
-    "year": 2024,
-    "vs": "ETRA 2024",
     "title": "40 years of eye typing: challenges, gaps, and emergent strategies",
+    "year": "2024",
     "au": "Hamid, Kristensson",
     "ve": "ETRA 2024",
+    "vs": "ETRA 2024",
     "link": "https://doi.org/10.1145/3655596",
-    "areas": [
-      "acc",
-      "hci"
-    ],
-    "people": [
-      "ah",
-      "pok"
-    ],
-    "projects": [
-      "p-eye"
-    ]
+    "projects": "Eye typing and communication access",
+    "people": "Aleesha Hamid; Per Ola Kristensson",
+    "areas": "Accessibility & AAC; HCI",
+    "id": "eyetyping"
   },
   {
-    "id": "crowdbo",
-    "year": 2019,
-    "vs": "CHI 2019",
     "title": "Crowdsourcing interface feature design with Bayesian optimization",
+    "year": "2019",
     "au": "Dudley, Jacques, Kristensson",
     "ve": "CHI 2019",
+    "vs": "CHI 2019",
     "link": "https://doi.org/10.1145/3290605.3300482",
-    "areas": [
-      "hc",
-      "iis"
-    ],
-    "people": [
-      "jd",
-      "pok"
-    ],
-    "projects": [
-      "p-bo"
-    ]
+    "projects": "Bayesian optimisation for interaction design",
+    "people": "John Dudley; Per Ola Kristensson",
+    "areas": "Crowdsourcing; Intelligent systems",
+    "id": "crowdbo"
   },
   {
-    "id": "gig",
-    "year": 2019,
-    "vs": "CHI 2019",
     "title": "Crowdworker economics in the gig economy",
+    "year": "2019",
     "au": "Jacques, Kristensson",
     "ve": "CHI 2019",
+    "vs": "CHI 2019",
     "link": "https://doi.org/10.1145/3290605.3300621",
-    "areas": [
-      "hc"
-    ],
-    "people": [
-      "pok"
-    ],
-    "projects": []
+    "people": "Per Ola Kristensson",
+    "areas": "Crowdsourcing",
+    "id": "gig"
   }
 ]

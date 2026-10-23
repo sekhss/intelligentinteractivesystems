@@ -1,37 +1,50 @@
 [
   {
-    "id": "iis",
-    "name": "Intelligent interactive systems",
-    "short": "Intelligent systems",
-    "word": "intelligent",
+    "name": "Mixed Reality",
+    "short": "Mixed Reality",
+    "word": "mixed",
     "color": "#0F8B8D"
   },
   {
-    "id": "hci",
-    "name": "Human–computer interaction",
-    "short": "HCI",
-    "word": "interaction",
-    "color": "#D98E04"
+    "name": "Human-Robot Interaction",
+    "short": "Human-Robot Interaction",
+    "word": "robot",
+    "color": "#D9480F"
   },
   {
-    "id": "acc",
-    "name": "Accessibility, inclusive design and AAC",
-    "short": "Accessibility & AAC",
+    "name": "Text Entry",
+    "short": "Text Entry",
+    "word": "typing",
+    "color": "#2540FF"
+  },
+  {
+    "name": "Accessibility",
+    "short": "Accessibility",
     "word": "access",
-    "color": "#E4572E"
+    "color": "#C2255C"
   },
   {
-    "id": "hc",
-    "name": "Human computation and crowdsourcing",
-    "short": "Crowdsourcing",
-    "word": "crowd",
+    "name": "Adaptive Interfaces",
+    "short": "Adaptive Interfaces",
+    "word": "adaptive",
     "color": "#5E9E3B"
   },
   {
-    "id": "sci",
-    "name": "Interaction science",
-    "short": "Interaction science",
-    "word": "science",
-    "color": "#8E44AD"
+    "name": "Hand Gestures",
+    "short": "Hand Gestures",
+    "word": "gesture",
+    "color": "#B7791F"
+  },
+  {
+    "name": "Human-AI Interaction",
+    "short": "Human-AI Interaction",
+    "word": "hai",
+    "color": "#7048E8"
+  },
+  {
+    "name": "Spatial Interaction Design",
+    "short": "Spatial Interaction Design",
+    "word": "spatial",
+    "color": "#0B7285"
   }
 ]
